@@ -19,10 +19,10 @@ services:
       POSTGRES_PASSWORD: demo
       POSTGRES_DB: demo
     ports: [5431:5432]
-    # redis:
-    # image: redis
-    # restart: always
-    # ports: [6370:6379]
+  redis:
+    image: redis
+    restart: always
+    ports: [6370:6379]
 volumes:
   pgdata:
   pgdata_test:
