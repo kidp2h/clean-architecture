@@ -83,7 +83,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Run PostgreSQL container
-        run: docker-compose up -d
+        run: pnpm docker:up
       - name: Sleep for 30 seconds wait for container
         run: sleep 15s
         shell: bash
