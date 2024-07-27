@@ -7,14 +7,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModel as TypeormUserModel } from '@/infrastructure/typeorm/models';
 import { UserEntity } from '@/domain/user';
-import { UserRepositoryImpl as RepoPrisma } from '@/infrastructure/prisma/repositories';
 import { UserRepositoryImpl as RepoTypeorm } from '@/infrastructure/typeorm/repositories';
 
-import { User as PrismaUserModel } from '@prisma/client';
 import { Mapper } from '@/core';
-import { UserMapper as PrismaUserMapper } from '@/infrastructure/prisma/mappers';
 import { UserMapper as TypeormUserMapper } from '@/infrastructure/typeorm/mappers';
-import { PrismaService } from '@/infrastructure/prisma';
 
 @Module({})
 export class UserFacadeModule {
