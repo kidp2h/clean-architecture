@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PresentationModule, PrismaModule } from '@/application/di';
+import { PresentationModule } from '@/application/di';
 import { UserModel } from '@/infrastructure/typeorm/models';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
