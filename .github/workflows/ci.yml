@@ -85,7 +85,7 @@ jobs:
       - name: Run PostgreSQL container
         run: docker-compose up -d
       - name: Sleep for 30 seconds wait for container
-        run: sleep 30s
+        run: sleep 15s
         shell: bash
       - name: Run tests
         run: pnpm test:e2e
