@@ -63,3 +63,29 @@ jobs:
         run: pnpm install
       - name: Run tests
         run: pnpm test
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy repository
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+      - name: Setup env
+        run: cp .env.development.example .env.development
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run PostgreSQL container
+        run: docker-compose up -d
+      - name: Sleep for 30 seconds wait for container
+        run: sleep 30s
+        shell: bash
+      - name: Run tests
+        run: pnpm test:e2e
