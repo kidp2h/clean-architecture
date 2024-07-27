@@ -1,0 +1,28 @@
+---
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes: [pgdata:/var/lib/postgresql/data]
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: demo
+    ports: [5430:5432]
+  db_test:
+    image: postgres
+    restart: always
+    volumes: [pgdata_test:/var/lib/postgresql/data]
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: demo
+    ports: [5431:5432]
+    # redis:
+    # image: redis
+    # restart: always
+    # ports: [6370:6379]
+volumes:
+  pgdata:
+  pgdata_test:
