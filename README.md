@@ -23,7 +23,7 @@ I implemented this architecture base on this book
 ## In Progress
 
 - [ ] Add prisma database, so we can easily between typeorm to prisma and vice versa without change code or business layer
-- [ ] Add Dockerfile
+- [x] Add Dockerfile
 - [ ] Apply some patterns and more example SOLID
 - [ ] Add repo frontend (Next.JS), which will apply clean architecture (maybe)
 

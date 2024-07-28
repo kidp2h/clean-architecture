@@ -3,26 +3,70 @@ version: '3'
 services:
   db:
     image: postgres
+    container_name: db
     restart: always
     volumes: [pgdata:/var/lib/postgresql/data]
     environment:
       POSTGRES_USER: demo
       POSTGRES_PASSWORD: demo
       POSTGRES_DB: demo
-    ports: [$DATABASE_PORT:5432]
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -h db -p $DATABASE_PORT]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports: [$DATABASE_PORT:$DATABASE_PORT]
+    command: -p $DATABASE_PORT
+    networks: [api]
   db_test:
     image: postgres
     restart: always
+    container_name: db_test
     volumes: [pgdata_test:/var/lib/postgresql/data]
     environment:
       POSTGRES_USER: demo
       POSTGRES_PASSWORD: demo
       POSTGRES_DB: demo
-    ports: [$DATABASE_TEST_PORT:5432]
+    ports: [$DATABASE_TEST_PORT:$DATABASE_TEST_PORT]
+    networks: [api]
   redis:
     image: redis
+    container_name: redis
     restart: always
-    ports: [$REDIS_PORT:6379]
+    ports: [$REDIS_PORT:$REDIS_PORT]
+    command: [redis-server, --bind, redis, --port, $REDIS_PORT]
+    healthcheck:
+      test: [CMD-SHELL, redis-cli -h redis -p $REDIS_PORT ping | grep PONG]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    networks: [api]
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: [$PORT:$PORT]
+    environment:
+      PORT: $PORT
+      DATABASE_NAME: $DATABASE_NAME
+      DATABASE_USER: $DATABASE_USER
+      DATABASE_PASSWORD: $DATABASE_PASSWORD
+      DATABASE_HOST: $DATABASE_HOST
+      DATABASE_PORT: $DATABASE_PORT
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+    links: [redis, db]
+    depends_on:
+      redis:
+        condition: service_healthy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    networks: [api]
 volumes:
   pgdata:
   pgdata_test:
+networks:
+  api:
+    driver: bridge
