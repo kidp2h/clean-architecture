@@ -84,8 +84,8 @@ jobs:
         run: pnpm install
       - name: Run PostgreSQL container
         run: pnpm docker:up
-      - name: Sleep for 30 seconds wait for container
-        run: sleep 15s
+      - name: Sleep for 10 seconds wait for container
+        run: sleep 10s
         shell: bash
       - name: Run tests
         run: pnpm test:e2e
