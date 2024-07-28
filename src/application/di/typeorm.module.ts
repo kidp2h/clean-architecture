@@ -9,7 +9,7 @@ type TypeOrmConfig = {
 };
 @Module({})
 export class TypeOrmModule {
-  static forRoot({ entities, database, url }: TypeOrmConfig): DynamicModule {
+  static forRoot({ entities, database }: TypeOrmConfig): DynamicModule {
     return {
       module: TypeOrmModule,
       imports: [
