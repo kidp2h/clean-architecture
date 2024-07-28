@@ -7,9 +7,9 @@ services:
     restart: always
     volumes: [pgdata:/var/lib/postgresql/data]
     environment:
-      POSTGRES_USER: demo
-      POSTGRES_PASSWORD: demo
-      POSTGRES_DB: demo
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_DB: $DATABASE_NAME
     healthcheck:
       test: [CMD-SHELL, pg_isready -h db -p $DATABASE_PORT]
       interval: 10s
@@ -23,10 +23,11 @@ services:
     restart: always
     container_name: db_test
     volumes: [pgdata_test:/var/lib/postgresql/data]
+    command: -p $DATABASE_TEST_PORT
     environment:
-      POSTGRES_USER: demo
-      POSTGRES_PASSWORD: demo
-      POSTGRES_DB: demo
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_DB: $DATABASE_NAME
     ports: [$DATABASE_TEST_PORT:$DATABASE_TEST_PORT]
     networks: [api]
   redis:
