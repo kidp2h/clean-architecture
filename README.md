@@ -16,7 +16,7 @@ Besides, this still implemented SOLID principle
 
 ### Some docs maybe useful (Updating ...)
 
-![Example 1](https://github.com/kidp2h/clean-architecture/blob/main/.assets/example-1.png?raw=true)
+![Example 1](https://github.com/kidp2h/clean-architecture/blob/main/.assets/example1.png?raw=true)
 I implemented this architecture base on this book
 [Book Bob Martin](https://github.com/kidp2h/clean-architecture/blob/main/.assets/book.pdf?raw=true)
 
