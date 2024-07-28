@@ -15,7 +15,10 @@ export class TypeOrmModule {
       imports: [
         NestTypeOrmModule.forRoot({
           type: 'postgres',
-          url: url || process.env.DATABASE_URL,
+          host: process.env.DATABASE_HOST || 'localhost',
+          port: +process.env.DATABASE_PORT || 5432,
+          username: process.env.DATABASE_USER,
+          password: process.env.DATABASE_PASSWORD,
           entities,
           database: database || 'demo',
           synchronize: true,
