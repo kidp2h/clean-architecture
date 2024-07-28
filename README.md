@@ -1,4 +1,5 @@
 ![CI](https://github.com/kidp2h/clean-architecture/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/kidp2h/clean-architecture/graph/badge.svg?token=MR0T1Q3VO3)](https://codecov.io/gh/kidp2h/clean-architecture)
 
 ## Description
 
