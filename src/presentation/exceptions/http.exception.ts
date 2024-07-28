@@ -1,5 +1,6 @@
 import {
   ArgumentsHost,
+  BadRequestException,
   Catch,
   ExceptionFilter,
   HttpException,
@@ -12,7 +13,7 @@ import { QueryFailedError } from 'typeorm';
 export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(HttpExceptionFilter.name);
   catch(exception: any, host: ArgumentsHost) {
-    this.logger.error(exception.message);
+    this.logger.error(exception.message, exception);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>() as any;
     let code = 500,
@@ -37,6 +38,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
         error =
           (exception.getResponse() as any).error || 'Internal Server Error';
+        break;
+      case BadRequestException:
+        code = exception.getStatus();
+        error =
+          (exception.getResponse() as any).message || 'Internal Server Error';
         break;
     }
     return response.status(code).json({

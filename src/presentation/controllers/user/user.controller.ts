@@ -6,6 +6,7 @@ import {
   HttpException,
   Logger,
   Param,
+  ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
 import { UserFacadeUsecase } from '@/domain/user';
@@ -14,6 +15,7 @@ import { CreateUserDto } from '@/application/dtos/user/create-user.dto';
 import * as uuid from 'uuid';
 import * as _ from 'lodash';
 import { ResponseMessage } from '@/presentation/commons/decorators/ResponseMessage';
+import { IsUUID } from 'class-validator';
 
 @Controller('/user')
 export class UserController {
@@ -26,7 +28,7 @@ export class UserController {
 
   @Get('/:id')
   @ResponseMessage('Fetch user successfully')
-  async getUser(@Param('id') id: string) {
+  async getUser(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.log('Get User');
     if (!uuid.validate(id)) return null;
 
@@ -35,7 +37,7 @@ export class UserController {
 
     const user = await this.userFacadeUsecase.getUser(id);
     if (user) this.cacheService.set(id, user);
-
+    console.log(user);
     return user;
   }
 

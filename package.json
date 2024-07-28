@@ -81,8 +81,10 @@
   },
   "lint-staged": {
     "*.ts": [
-      "npm run lint",
-      "npm run format"
+      "pnpm run lint",
+      "pnpm run format",
+      "pnpm test",
+      "pnpm test:e2e"
     ]
   }
 }
