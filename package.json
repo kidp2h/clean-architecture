@@ -23,11 +23,6 @@
     "docker:up": "docker-compose --env-file .env.development up -d",
     "docker:down": "docker-compose --env-file .env.development down"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pnpm test && pnpm test:e2e"
-    }
-  },
   "dependencies": {
     "@nestjs/cache-manager": "^2.2.2",
     "@nestjs/common": "^10.0.0",
@@ -86,8 +81,10 @@
   },
   "lint-staged": {
     "*.ts": [
-      "pnpm run lint",
-      "pnpm run format"
+      "pnpm lint",
+      "pnpm format",
+      "pnpm run test",
+      "pnpm run test:e2e"
     ]
   }
 }
