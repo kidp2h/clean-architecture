@@ -16,7 +16,7 @@ module.exports = {
     '/node_modules./',
     '<rootDir>/(coverage|dist|lib|tmp)./',
   ],
-  coverageReporters: ['text', 'lcov', 'cobertura'],
+  coverageReporters: ['text', 'lcov', 'cobertura', 'json-summary'],
   coveragePathIgnorePatterns: [
     'node_modules',
     'test-config',
