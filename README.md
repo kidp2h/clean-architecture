@@ -10,6 +10,7 @@ This repo implemented clean architecture with unit test, e2e test, ci, etc. You 
 ## In Progress
 
 - [ ] Add prisma database, so we can easily between typeorm to prisma and vice versa without change code or business layer
+- [ ] Add Dockerfile
 
 ## Installation
 
