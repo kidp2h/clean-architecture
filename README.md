@@ -4,7 +4,6 @@
 ## Description
 
 This repo implemented clean architecture with unit test, e2e test, ci, etc. You can use it as a template
-cov](https://codecov.io/gh/kidp2h/clean-architecture/branch/main/graph/badge.svg?token=MR0T1Q3VO3)](https://codecov.io/gh/kidp2h/clean-architecture)
 
 ![Clean architecture](https://github.com/kidp2h/clean-architecture/blob/main/.assets/clean-architecture.png?raw=true)
 
