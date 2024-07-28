@@ -24,7 +24,7 @@ describe('[E2E] AppController', () => {
         expect(response.body).toEqual({ message: 'Check health', status: 200 });
       });
   });
-  afterAll((done) => {
-    done();
+  afterAll(async () => {
+    await app.close();
   });
 });

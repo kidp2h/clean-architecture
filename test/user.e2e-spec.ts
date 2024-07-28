@@ -43,4 +43,8 @@ describe('[E2E] UserController', () => {
       .expect(201);
     expect(response.body.id).toBeDefined();
   });
+
+  afterAll(async () => {
+    await app.close();
+  });
 });
