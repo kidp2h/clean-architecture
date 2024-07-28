@@ -20,7 +20,7 @@
     "test:watch": "jest --config ./jest.config.js --passWithNoTests --watch ",
     "test:cov": "jest --config ./jest.config.js --passWithNoTests --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --config ./jest.config.js --passWithNoTests  ",
-    "test:e2e": "dotenv -e .env.development --  jest --passWithNoTests --runInBand --no-cache --detectOpenHandles --config ./jest.e2e.js",
+    "test:e2e": "dotenv -e .env.development --  jest --passWithNoTests --detectOpenHandles --forceExit --no-cache --config ./jest.e2e.js",
     "prepare": "husky",
     "lint-staged": "lint-staged",
     "docker:up": "docker-compose --env-file .env.development up -d",
