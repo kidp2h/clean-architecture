@@ -1,10 +1,13 @@
 import { Test } from '@nestjs/testing';
 import { UserController } from '@/presentation/controllers/user';
-import { UserFacadeUsecase } from '@/domain/user';
+import { UserEntity, UserFacadeUsecase } from '@/domain/user';
 import { CacheService } from '@/infrastructure/redis/cache';
 import _ from 'lodash';
 
 import { faker } from '@faker-js/faker';
+import { Mapper } from '@/core';
+import { UserModel } from '@/infrastructure/typeorm/models';
+import { UserMapper } from '@/infrastructure/typeorm/mappers';
 const mockUser = {
   id: faker.string.uuid(),
   username: faker.internet.userName(),
@@ -25,7 +28,7 @@ const mockExistUser = {
 
 describe('UserController', () => {
   let controller: UserController;
-  let userFaceUsecase: Partial<UserFacadeUsecase> = {
+  let userFacadeUsecase: Partial<UserFacadeUsecase> = {
     getUser: jest.fn(),
     createUser: jest.fn(),
   };
@@ -41,7 +44,12 @@ describe('UserController', () => {
       providers: [
         {
           provide: UserFacadeUsecase,
-          useValue: userFaceUsecase,
+          useValue: userFacadeUsecase,
+        },
+
+        {
+          provide: Mapper<UserEntity, UserModel>,
+          useClass: UserMapper,
         },
         {
           provide: CacheService,
@@ -50,7 +58,7 @@ describe('UserController', () => {
       ],
     }).compile();
     controller = module.get<UserController>(UserController);
-    userFaceUsecase = module.get<UserFacadeUsecase>(UserFacadeUsecase);
+    userFacadeUsecase = module.get<UserFacadeUsecase>(UserFacadeUsecase);
     cacheService = module.get<CacheService>(CacheService);
   });
   it('should be defined', () => {
@@ -61,7 +69,7 @@ describe('UserController', () => {
     jest.clearAllMocks();
   });
   it('[createUser] should create user', async () => {
-    jest.spyOn(userFaceUsecase, 'createUser').mockResolvedValueOnce(mockUser);
+    jest.spyOn(userFacadeUsecase, 'createUser').mockResolvedValueOnce(mockUser);
     const expectedOutput = await controller.createUser(mockUser);
 
     expect(expectedOutput.username).toEqual(mockUser.username);
@@ -86,7 +94,7 @@ describe('UserController', () => {
 
   it('[getUser] expect correct output when have not cache yet', async () => {
     jest.spyOn(cacheService, 'get').mockResolvedValueOnce(null);
-    jest.spyOn(userFaceUsecase, 'getUser').mockResolvedValueOnce(mockUser);
+    jest.spyOn(userFacadeUsecase, 'getUser').mockResolvedValueOnce(mockUser);
     const expectedOutput = await controller.getUser(mockUser.id);
 
     expect(expectedOutput).toEqual(mockUser);

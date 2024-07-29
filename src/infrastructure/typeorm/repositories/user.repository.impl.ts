@@ -17,6 +17,14 @@ export class UserRepositoryImpl extends UserRepository {
   ) {
     super();
   }
+
+  async findOne(filter: Partial<UserEntity>): Promise<Partial<UserEntity>> {
+    const userTypeorm = await this.userRepository.findOne({
+      where: filter,
+    });
+    return this.userMapper.toEntity(userTypeorm);
+  }
+
   async findUnique(id: string) {
     this.logger.log('[Typeorm] findUnique', id);
     if (!uuid.validate(id)) return null;

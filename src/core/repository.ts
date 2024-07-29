@@ -10,4 +10,6 @@ export abstract class Repository<TEntity extends Entity> {
   ): Promise<Partial<TEntity>>;
   abstract delete(id: string): Promise<Partial<TEntity>>;
   abstract create(data: Partial<TEntity>): Promise<Partial<TEntity>>;
+
+  abstract findOne(filter: Partial<TEntity>): Promise<Partial<TEntity>>;
 }
