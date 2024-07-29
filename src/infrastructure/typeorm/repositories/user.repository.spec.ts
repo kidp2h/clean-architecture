@@ -159,4 +159,12 @@ describe('UserRepository', () => {
     const result = await repository.findMany({});
     expect(result).toEqual(users);
   });
+  it('should return only one user', async () => {
+    const user = mockUser;
+    jest
+      .spyOn(userRepository, 'findOne')
+      .mockImplementation(() => Promise.resolve(user));
+    const result = await repository.findOne({ username: user.username });
+    expect(result).toEqual(user);
+  });
 });
