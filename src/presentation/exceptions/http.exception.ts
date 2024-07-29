@@ -5,6 +5,7 @@ import {
   ExceptionFilter,
   HttpException,
   Logger,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ValidationException } from './validation.exception';
 import { QueryFailedError } from 'typeorm';
@@ -16,8 +17,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     this.logger.error(exception.message, exception);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>() as any;
-    let code = 500,
-      error = 'Internal Server Error';
+    let code = exception.getStatus ? exception.getStatus() : 500,
+      error = exception.message || 'Internal Server Error';
 
     switch (exception.constructor) {
       case QueryFailedError:

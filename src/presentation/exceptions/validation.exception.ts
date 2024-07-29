@@ -13,7 +13,7 @@ export const validationExceptionFactory = (errors: ValidationError[]) => {
   };
   return new ValidationException({
     message: 'Bad Input',
-    error: {
+    validation: {
       ...formatError(errors),
     },
     timestamp: new Date().toISOString(),
