@@ -63,6 +63,33 @@ jobs:
         run: pnpm install
       - name: Run build
         run: pnpm build
+  checkhealth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy repository
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+      - name: Setup env
+        run: cp .env.development.local.example .env.development.local && cp .env.development.example
+          .env.development
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run containers
+        run: pnpm docker:up --build
+      - name: Sleep for 10 seconds wait for containers
+        run: sleep 10s
+        shell: bash
+      - name: Check health
+        run: npx wait-on --timeout 10000 http://localhost/checkhealth
   test:
     runs-on: ubuntu-latest
     steps:
@@ -106,9 +133,9 @@ jobs:
           .env.development
       - name: Install dependencies
         run: pnpm install
-      - name: Run PostgreSQL container
-        run: pnpm docker:up
-      - name: Sleep for 10 seconds wait for container
+      - name: Run containers
+        run: pnpm docker:up --build
+      - name: Sleep for 10 seconds wait for containers
         run: sleep 10s
         shell: bash
       - name: Run tests
