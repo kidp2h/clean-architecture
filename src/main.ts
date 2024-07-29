@@ -6,6 +6,7 @@ import {
   HttpExceptionFilter,
   validationExceptionFactory,
 } from '@/presentation/exceptions';
+import { TransformInterceptor } from './presentation/commons/interceptors/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,8 +17,12 @@ async function bootstrap() {
     }),
   );
 
-  app.useGlobalInterceptors(new ResponseInterceptor(app.get(Reflector)));
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  app.useGlobalInterceptors(
+    new TransformInterceptor(),
+    new ResponseInterceptor(app.get(Reflector)),
+  );
   await app.listen(process.env.PORT);
 }
 bootstrap();
