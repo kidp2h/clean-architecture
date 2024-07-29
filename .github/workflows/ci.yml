@@ -44,6 +44,25 @@ jobs:
         run: pnpm install
       - name: Lint code
         run: pnpm lint
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy repository
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run build
+        run: pnpm build
   test:
     runs-on: ubuntu-latest
     steps:
