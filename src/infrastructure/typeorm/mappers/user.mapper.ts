@@ -8,6 +8,7 @@ export class UserMapper extends Mapper<UserEntity, UserModel> {
       return new UserEntity(
         data.id,
         data.username,
+        data.password,
         data.createdAt,
         data.updatedAt,
         data.deletedAt,
