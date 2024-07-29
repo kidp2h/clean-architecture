@@ -31,5 +31,5 @@ ENV REDIS_HOST=$REDIS_HOST
 ENV REDIS_PORT=$REDIS_PORT
 COPY --chown=node:node --from=build /usr/src/api/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/api/dist ./dist
-CMD [ "node", "dist/src/main"]
+CMD [ "node", "dist/main"]
 EXPOSE $PORT
