@@ -1,4 +1,4 @@
-export abstract class Mapper<D, E> {
-  abstract toEntity(entity: Partial<E>): Partial<D>;
-  abstract toModel(domain: Partial<D>): Partial<E>;
+export abstract class Mapper<E, M> {
+  abstract toEntity(entity: Partial<M>): Partial<E>;
+  abstract toModel(domain: Partial<E>): Partial<M>;
 }
