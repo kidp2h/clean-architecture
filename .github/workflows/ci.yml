@@ -22,7 +22,7 @@ jobs:
           node-version: 18
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Lint commit
         run: npx commitlint --last --verbose
   lint-code:
@@ -41,7 +41,7 @@ jobs:
           node-version: 18
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Lint code
         run: pnpm lint
   build:
@@ -60,7 +60,7 @@ jobs:
           node-version: 18
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Run build
         run: pnpm build
   test:
@@ -79,7 +79,7 @@ jobs:
           node-version: 18
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Run tests
         run: pnpm test:cov
       - name: Upload coverage reports to Codecov
@@ -105,7 +105,7 @@ jobs:
         run: cp .env.development.local.example .env.development.local && cp .env.development.example
           .env.development
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       - name: Run PostgreSQL container
         run: pnpm docker:up
       - name: Sleep for 10 seconds wait for container
