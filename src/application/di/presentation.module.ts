@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { UserFacadeUsecase } from '@/domain/user';
 import { UserModule } from './user.module';
+import { AuthModule } from './auth.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, AuthModule],
   controllers: [],
   providers: [],
 })

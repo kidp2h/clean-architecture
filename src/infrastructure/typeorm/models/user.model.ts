@@ -23,7 +23,7 @@ export class UserModel {
   username: string;
 
   @Column({
-    select: false,
+    select: true,
   })
   password?: string;
 

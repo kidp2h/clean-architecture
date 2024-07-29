@@ -10,11 +10,11 @@ export class UserFacadeUsecase {
     @Inject(CreateUserUsecase) private readonly createUserUsecase: UserUsecase,
   ) {}
 
-  async createUser(data: Partial<UserEntity>) {
+  createUser(data: Partial<UserEntity>) {
     return this.createUserUsecase.execute(data);
   }
 
-  async getUser(id: string) {
+  getUser(id: string) {
     return this.getUserUsecase.execute(id);
   }
 }

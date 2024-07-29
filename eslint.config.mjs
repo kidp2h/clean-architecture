@@ -32,7 +32,7 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
-      'no-console': 'warn',
+      'no-console': 'error',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/no-namespace': 'off',
     },

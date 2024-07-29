@@ -5,12 +5,12 @@ import { UserController } from '@/presentation/controllers/user';
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModel as TypeormUserModel } from '@/infrastructure/typeorm/models';
+import { UserModel } from '@/infrastructure/typeorm/models';
 import { UserEntity } from '@/domain/user';
-import { UserRepositoryImpl as RepoTypeorm } from '@/infrastructure/typeorm/repositories';
+import { UserRepositoryImpl } from '@/infrastructure/typeorm/repositories';
 
 import { Mapper } from '@/core';
-import { UserMapper as TypeormUserMapper } from '@/infrastructure/typeorm/mappers';
+import { UserMapper } from '@/infrastructure/typeorm/mappers';
 
 @Module({})
 export class UserFacadeModule {
@@ -18,7 +18,7 @@ export class UserFacadeModule {
     return {
       module: UserFacadeModule,
 
-      imports: [TypeOrmModule.forFeature([TypeormUserModel])],
+      imports: [TypeOrmModule.forFeature([UserModel])],
       providers: [
         UserFacadeUsecase,
         CreateUserUsecase,
@@ -26,12 +26,12 @@ export class UserFacadeModule {
 
         {
           provide: UserRepository,
-          useClass: RepoTypeorm,
+          useClass: UserRepositoryImpl,
         },
 
         {
-          provide: Mapper<UserEntity, TypeormUserModel>,
-          useClass: TypeormUserMapper,
+          provide: Mapper<UserEntity, UserModel>,
+          useClass: UserMapper,
         },
       ],
       exports: [UserFacadeUsecase, CreateUserUsecase, GetUserUsecase],
@@ -42,7 +42,13 @@ export class UserFacadeModule {
 @Module({
   imports: [UserFacadeModule.register()],
   controllers: [UserController],
-  providers: [CacheService],
+  providers: [
+    CacheService,
+    {
+      provide: Mapper<UserEntity, UserModel>,
+      useClass: UserMapper,
+    },
+  ],
   exports: [],
 })
 export class UserModule {}
