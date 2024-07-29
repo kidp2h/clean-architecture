@@ -2,9 +2,9 @@
 name: Nest.JS clean architecture CI
 on:
   push:
-    branches: ['*']
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 jobs:
   lint-commit:
     runs-on: ubuntu-latest
