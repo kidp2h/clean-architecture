@@ -11,7 +11,8 @@ import { Mapper } from '@/core';
 import { UserMapper } from '@/infrastructure/typeorm/mappers';
 import { CacheService } from '@/infrastructure/redis/cache';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtModule } from '@/infrastructure/services/jwt';
+import { JwtModule, JwtTokenService } from '@/infrastructure/services/jwt';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({})
 export class AuthFacadeModule {
@@ -22,6 +23,10 @@ export class AuthFacadeModule {
       providers: [
         AuthFacadeUsecase,
         AuthorizeUsecase,
+        {
+          provide: 'JWT_SERVICE',
+          useClass: JwtTokenService,
+        },
 
         {
           provide: UserRepository,

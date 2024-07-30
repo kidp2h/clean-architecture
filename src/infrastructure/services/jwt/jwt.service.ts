@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { IJwtService, IJwtPayload } from '@/domain/adapters';
 
 @Injectable()
 export class JwtTokenService implements IJwtService {
+  private readonly logger = new Logger(JwtTokenService.name);
   constructor(private readonly jwtService: JwtService) {}
 
   async decode(token: string, secret?: string): Promise<any> {
@@ -22,9 +23,19 @@ export class JwtTokenService implements IJwtService {
     secret?: string,
     expiresIn?: string,
   ): Promise<string> {
-    return this.jwtService.sign(payload, {
-      secret: secret || process.env.JWT_SECRET,
-      expiresIn: expiresIn || process.env.JWT_EXPIRES_IN,
-    });
+    try {
+      if (!payload) return null;
+      const result = await this.jwtService.signAsync(
+        { ...payload },
+        {
+          secret: secret || process.env.JWT_SECRET,
+          expiresIn: expiresIn || process.env.JWT_EXPIRES_IN,
+        },
+      );
+      return result;
+    } catch (e) {
+      this.logger.error('Exception Jwt: ', e);
+      return null;
+    }
   }
 }
