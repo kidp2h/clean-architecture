@@ -34,9 +34,15 @@ describe('JwtService', () => {
     expect(hash).toBeNull();
   });
 
-  it('should be encode', async () => {
+  it('should be encode with params', async () => {
     const hash = await service.encode(mockPayload, '123', '1h');
     const decode = await service.decode(hash, '123');
+    expect(decode.id).toEqual(mockPayload.id);
+  });
+
+  it('should be encode without params', async () => {
+    const hash = await service.encode(mockPayload);
+    const decode = await service.decode(hash);
     expect(decode.id).toEqual(mockPayload.id);
   });
 });
