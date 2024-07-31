@@ -5,7 +5,6 @@ import {
   ExceptionFilter,
   HttpException,
   Logger,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { ValidationException } from './validation.exception';
 import { QueryFailedError } from 'typeorm';

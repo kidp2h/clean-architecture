@@ -4,8 +4,6 @@ import { GetUserUsecase } from '@/domain/user/usecases/get-user.usecase';
 import { faker } from '@faker-js/faker';
 import { Repository } from '@/core';
 
-import _ from 'lodash';
-
 const mockUser = {
   id: faker.string.uuid(),
   username: faker.internet.userName(),

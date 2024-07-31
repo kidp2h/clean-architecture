@@ -2,7 +2,6 @@ import { Repository } from '@/core';
 import { UserEntity, UserRepository, UserUsecase } from '@/domain/user';
 import { CreateUserUsecase } from '@/domain/user/usecases';
 import { Test } from '@nestjs/testing';
-import _ from 'lodash';
 
 import { faker } from '@faker-js/faker';
 const mockUser = {

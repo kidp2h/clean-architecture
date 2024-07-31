@@ -54,6 +54,7 @@ export class UserRepositoryImpl extends UserRepository {
   async delete(id: string) {
     this.logger.log('[Typeorm] delete');
     const userTypeorm = await this.userRepository.save({
+      id,
       deletedAt: new Date(),
     });
     return this.userMapper.toEntity(userTypeorm);

@@ -1,4 +1,3 @@
-import { UserModel } from '@/infrastructure/typeorm/models';
 import { DynamicModule, Module } from '@nestjs/common';
 import { TypeOrmModule as NestTypeOrmModule } from '@nestjs/typeorm';
 

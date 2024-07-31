@@ -1,9 +1,10 @@
 import { Test } from '@nestjs/testing';
 import { AuthUsecase } from '../auth.usecase';
-import { AuthorizeUsecase } from './authorize.usecase';
-import { UserEntity, UserRepository } from '@/domain/user';
+import { AuthorizeToken, AuthorizeUsecase } from './authorize.usecase';
+import { UserRepository } from '@/domain/user';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcryptjs';
+import { IJwtService } from '@/domain/adapters';
 
 const mockPayload = {
   username: faker.internet.userName(),
@@ -21,11 +22,19 @@ const mockUser = {
 describe('AuthorizeUsecase', () => {
   let usecase: AuthUsecase;
   let repository: UserRepository;
+  let jwtService: IJwtService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [
         AuthorizeUsecase,
+        {
+          provide: 'JWT_SERVICE',
+          useValue: {
+            decode: jest.fn(),
+            encode: jest.fn(),
+          },
+        },
         {
           provide: UserRepository,
           useValue: {
@@ -36,6 +45,10 @@ describe('AuthorizeUsecase', () => {
     }).compile();
     usecase = module.get<AuthUsecase>(AuthorizeUsecase);
     repository = module.get<UserRepository>(UserRepository);
+    jwtService = module.get<IJwtService>('JWT_SERVICE');
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -49,17 +62,27 @@ describe('AuthorizeUsecase', () => {
     ).toBeNull();
   });
 
-  it('should return user if user found', async () => {
+  it('should return token if user found', async () => {
     jest.spyOn(repository, 'findOne').mockResolvedValue(mockUser);
-    const result = (await usecase.execute(mockPayload)) as UserEntity;
-    expect(result.id).toEqual(mockUser.id);
+
+    jest.spyOn(jwtService, 'encode').mockResolvedValue('token');
+    const result = (await usecase.execute(mockPayload)) as AuthorizeToken;
+    expect(result.accessToken).toBeDefined();
+    expect(result.refreshToken).toBeDefined();
   });
   it('should return null if password is invalid', async () => {
     jest.spyOn(repository, 'findOne').mockResolvedValue(mockUser);
     const result = (await usecase.execute({
       username: 'test',
       password: 'wrong password',
-    })) as UserEntity;
+    })) as AuthorizeToken;
+    expect(result).toEqual(null);
+  });
+
+  it('should return null if payload null', async () => {
+    jest.spyOn(repository, 'findOne').mockResolvedValue(mockUser);
+    jest.spyOn(jwtService, 'encode').mockResolvedValue(null);
+    const result = (await usecase.execute(mockPayload)) as AuthorizeToken;
     expect(result).toEqual(null);
   });
 });

@@ -47,7 +47,8 @@ describe('[E2E] AuthController', () => {
       .post(`/auth/authorize`)
       .send(payload)
       .expect(201);
-    expect(responseAuthorize.body.id).toBeDefined();
+    expect(responseAuthorize.body.accessToken).toBeDefined();
+    expect(responseAuthorize.body.refreshToken).toBeDefined();
   });
 
   it('POST /auth/authorize (should not authorized)', async () => {
@@ -58,6 +59,7 @@ describe('[E2E] AuthController', () => {
         password: faker.internet.password(),
       })
       .expect(401);
-    expect(responseAuthorize.body.id).toBeUndefined();
+    expect(responseAuthorize.body.accessToken).toBeUndefined();
+    expect(responseAuthorize.body.refreshToken).toBeUndefined();
   });
 });
