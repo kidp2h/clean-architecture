@@ -2,19 +2,12 @@ import { Test } from '@nestjs/testing';
 import { UserController } from '@/presentation/controllers/user';
 import { UserEntity, UserFacadeUsecase } from '@/domain/user';
 import { CacheService } from '@/infrastructure/redis/cache';
-import _ from 'lodash';
 
 import { faker } from '@faker-js/faker';
 import { Mapper } from '@/core';
 import { UserModel } from '@/infrastructure/typeorm/models';
 import { UserMapper } from '@/infrastructure/typeorm/mappers';
 const mockUser = {
-  id: faker.string.uuid(),
-  username: faker.internet.userName(),
-  password: faker.internet.password(),
-};
-
-const mockCachedUser = {
   id: faker.string.uuid(),
   username: faker.internet.userName(),
   password: faker.internet.password(),

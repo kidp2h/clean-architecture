@@ -4,8 +4,6 @@ import { faker } from '@faker-js/faker';
 
 import { JwtModule as Jwt, JwtService } from '@nestjs/jwt';
 import { JwtTokenService } from './jwt.service';
-import { UserEntity } from '@/domain/user';
-import { UserModel } from '@/infrastructure/typeorm/models';
 
 const mockPayload: IJwtPayload = {
   id: faker.string.uuid(),

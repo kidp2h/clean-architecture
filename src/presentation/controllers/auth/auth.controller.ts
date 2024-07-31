@@ -1,14 +1,7 @@
 import { AuthorizeDto } from '@/application/dtos/auth/authorize.dto';
 import { AuthFacadeUsecase } from '@/domain/auth';
 import { ResponseMessage } from '@/presentation/commons/decorators';
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {

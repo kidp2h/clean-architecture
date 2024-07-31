@@ -2,7 +2,6 @@ import { AuthorizeDto } from '@/application/dtos/auth/authorize.dto';
 import { IJwtService } from '@/domain/adapters';
 import { AuthUsecase } from '@/domain/auth';
 import { UserRepository } from '@/domain/user';
-import { JwtTokenService } from '@/infrastructure/services/jwt';
 import { Inject, Injectable } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 

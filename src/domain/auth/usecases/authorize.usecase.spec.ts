@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { AuthUsecase } from '../auth.usecase';
 import { AuthorizeToken, AuthorizeUsecase } from './authorize.usecase';
-import { UserEntity, UserRepository } from '@/domain/user';
+import { UserRepository } from '@/domain/user';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcryptjs';
 import { IJwtService } from '@/domain/adapters';

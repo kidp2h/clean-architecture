@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
-import { classToPlain, instanceToPlain } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 import { map, Observable } from 'rxjs';
 
 export class TransformInterceptor implements NestInterceptor {

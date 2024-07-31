@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BcryptService } from './bcrypt.service';
 import { ICryptService } from '@/domain/adapters';
 import { faker } from '@faker-js/faker';
 import { MD5Service } from './md5.service';

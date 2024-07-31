@@ -1,11 +1,10 @@
 import { Mapper, Repository } from '@/core';
-import { UserEntity, UserRepository } from '@/domain/user';
+import { UserEntity } from '@/domain/user';
 import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UserRepositoryImpl } from './user.repository.impl';
 import { QueryFailedError, Repository as TypeormRepository } from 'typeorm';
 import { UserModel } from '@/infrastructure/typeorm/models';
-import * as _ from 'lodash';
 import { faker } from '@faker-js/faker';
 import bcrypt from 'bcryptjs';
 

@@ -4,7 +4,6 @@ import { BaseCache } from '@/core';
 
 import { faker } from '@faker-js/faker';
 import { CACHE_MANAGER, CacheStore } from '@nestjs/cache-manager';
-import * as _ from 'lodash';
 
 const mockCachedUser = {
   id: faker.string.uuid(),

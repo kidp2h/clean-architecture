@@ -1,9 +1,7 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
-  HttpException,
   Logger,
   Param,
   ParseUUIDPipe,
@@ -15,7 +13,6 @@ import { CreateUserDto } from '@/application/dtos/user/create-user.dto';
 import * as uuid from 'uuid';
 import * as _ from 'lodash';
 import { ResponseMessage } from '@/presentation/commons/decorators/ResponseMessage';
-import { IsUUID } from 'class-validator';
 import { Mapper } from '@/core';
 import { UserModel } from '@/infrastructure/typeorm/models';
 
